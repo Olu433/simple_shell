@@ -1,31 +1,26 @@
 #include "shell.h"
-#include <stdio.h>
 
-int main(void)
+int main(__attribute__((unused)) int ac, char **av)
 {
-    char *text[] = {"Hello", "World"};
-    char *cmd_line = "ls -l";
-    int exit_status = 0;
-    int i;
+    char *line = NULL;
+    size_t len = 0;
+    int i = 1, count = 0;
 
-    /* Example usage of functions */
-    i = 2; /* Number of elements in the 'text' array */
-
-    /* Copy a string */
-    char dest[100];
-    _strcpy(dest, "Hello, World!");
-    printf("Copied string: %s\n", dest);
-
-    /* Allocate and clear memory */
-    char *mem = (char *)_calloc(10, sizeof(char));
-    printf("Allocated memory: %s\n", mem);
-
-    /* Exit the program properly */
-    a_exit(text, i, cmd_line, exit_status);
-
-    /* Print the environment */
-    _env();
-
+    while (i != -1)
+    {
+        count++;
+        signal(SIGINT, signal_handler);
+        if (isatty(STDIN_FILENO) == 1)
+            write(STDOUT_FILENO, "$ ", 2);
+        i = getline(&line, &len, stdin);
+        if (i < 0)
+        {
+            free(line);
+            exit(0);
+        }
+        str_to_array(line, count, av);
+        free(line);
+        line = NULL;
+    }
     return (0);
 }
-
