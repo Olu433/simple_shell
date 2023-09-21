@@ -2,57 +2,33 @@
 #define SHELL_H
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <fcntl.h>
-#include <errno.h>
+#include <string.h>
 
-// Constants
-#define WHITESPACE " \t\n"
+#define strtok_delim " \n\r\a\t"
 
-// Utility Functions
-void freeArray(char **arr);
-void printError(char *program, char *command, int index);
-void printErrorOfExit(char *program, char *command, int index);
-char *intToAscii(int number);
-void reverseString(char *string, int length);
-int isPositiveInteger(char *str);
-int stringToInteger(char *str);
-
-// Utility Functions (utils2)
-int isPositiveInteger(char *str);
-int stringToInteger(char *str);
-char *getEnvironmentVariable(char *variable, char **environment);
-char **tokenizeInputLine(char *line);
-char *readUserInputLine(void);
-
-// String Manipulation Functions
-int stringLength(char *string);
-char *stringConcatenate(char *dest, char *src);
-char *stringCopy(char *dest, char *src);
-char *stringDuplicate(const char *str);
-int stringCompare(char *s1, char *s2);
-
-// Execution Function
-int executeCommand(char **cmd, char **argv, char **environment, int index);
-
-// Handler Functions
-char *handlePath(char *cmd, char **environment);
-void handleExitCommand(char **command, char **argv, int *status, int index);
-void handleBuiltInCommand(char **command, char **argv, int *status, int index, char **environment);
-void handleEnvCommand(char **command, int *status, char **environment);
-
-// Tokenization Function
-char *customTokenizer(char *str, const char *delimiters);
-
-// Custom Input Reading Function
-ssize_t customGetline(char **linePtr, size_t *n, FILE *stream);
-
-// Built-In Command Detection
-int isBuiltInCommand(char *command);
+extern char **environ;
+int str_to_array(char *cmd_line, int count, char **argv);
+int _exec(char **cmd_list, int i, char *cmd_line, int count, char **argv);
+void command_not_found(int i, char **cmd_list, int count, char **argv);
+int _strlen(char *s);
+char *_strncpy(char *dest, char *src, int n);
+char *_strdup(char *str);
+char *_path(char *command);
+char *directory(char *temporal_dir, char *command);
+char *_strcat(char *dest, char *src);
+char *_strdup(char *str);
+int _strcmp(char *s1, char *s2);
+char *_strcpy(char *dest, char *src);
+void *_calloc(unsigned int nmemb, unsigned int size);
+void a_exit(char **text, int i, char *cmd_line, int exit_status);
+void _env(void);
+void signal_handler(int signal);
+int _putchar(char c);
+void print_number(int n);
 
 #endif
