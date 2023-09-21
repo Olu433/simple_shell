@@ -1,15 +1,31 @@
 #include "shell.h"
+#include <stdio.h>
 
 int main(void)
 {
-    char *input_buffer = NULL;
-    size_t buffer_size = 0;
+    char *text[] = {"Hello", "World"};
+    char *cmd_line = "ls -l";
+    int exit_status = 0;
+    int i;
 
-    while (1)
-    {
-        write(STDOUT_FILENO, "$ ", 2);
-        getline(&input_buffer, &buffer_size, stdin);
-        // Your code to process the user's input goes here
-    }
+    /* Example usage of functions */
+    i = 2; /* Number of elements in the 'text' array */
+
+    /* Copy a string */
+    char dest[100];
+    _strcpy(dest, "Hello, World!");
+    printf("Copied string: %s\n", dest);
+
+    /* Allocate and clear memory */
+    char *mem = (char *)_calloc(10, sizeof(char));
+    printf("Allocated memory: %s\n", mem);
+
+    /* Exit the program properly */
+    a_exit(text, i, cmd_line, exit_status);
+
+    /* Print the environment */
+    _env();
+
     return (0);
 }
+
