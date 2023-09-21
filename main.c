@@ -1,26 +1,19 @@
 #include "shell.h"
 
-int main(__attribute__((unused)) int ac, char **av)
+/**
+ * main - entry point to start program
+ *
+ * @ac: arguments counter.
+ * @av: arguments values.
+ * @env: environment.
+ *
+ * Return: 0 on success
+ */
+int main(int ac, char **av, char **env)
 {
-    char *line = NULL;
-    size_t len = 0;
-    int i = 1, count = 0;
+	int status;
 
-    while (i != -1)
-    {
-        count++;
-        signal(SIGINT, signal_handler);
-        if (isatty(STDIN_FILENO) == 1)
-            write(STDOUT_FILENO, "$ ", 2);
-        i = getline(&line, &len, stdin);
-        if (i < 0)
-        {
-            free(line);
-            exit(0);
-        }
-        str_to_array(line, count, av);
-        free(line);
-        line = NULL;
-    }
-    return (0);
+	status = start_shell(ac, av, env);
+
+	return (status);
 }
