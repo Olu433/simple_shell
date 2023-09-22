@@ -50,4 +50,4 @@ ssize_t myGetline(char **linePtr, size_t *n, FILE *stream);
 /* Check Built-In Command */
 int isBuiltIn(char *command);
 
-#endif /* SHELL_H */
+#endif
